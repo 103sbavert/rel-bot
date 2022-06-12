@@ -16,7 +16,7 @@ async def on_ready():
     print(f'We have logged in as {client.user}')
 
     # load all cogs
-for folder in os.listdir("cogs"):
+for folder in os.listdir(f"{os.getcwd()}/../cogs"):
     if os.path.exists(os.path.join("cogs", folder, "cog.py")):
         client.load_extension(f"cogs.{folder}.cog")
 
@@ -25,3 +25,4 @@ async def hello(interaction: nextcord.Interaction):
     await interaction.send("Hello!")
 
 client.run(os.getenv("BOT_TOKEN"))
+

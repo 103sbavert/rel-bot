@@ -1,4 +1,4 @@
-from .verification_role_view import VerificationRoleView
+from verification_role_view import VerificationRoleView
 from nextcord.ext import commands
 
 class VerificationButtonRolesCog(commands.Cog, name="Verification"):
