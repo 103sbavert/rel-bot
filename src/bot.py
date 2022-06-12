@@ -1,13 +1,16 @@
-import os
 import json
-import nextcord
-from nextcord.ext import commands
+import discord
 
 
-class RelBot(commands.Bot):
+class RelBot(discord.Client):
 
-    def __init__(self, command_prefix=None, help_command=None, description=None, **options):
-        super().__init__(command_prefix, help_command, description, **options)
+    def __init__(self, token: str, *, loop=None, **options):
+        super().__init__(loop=loop, **options)
+        self.token = token
 
-    async def on_ready(self):
-        await print(f'We have logged in as {self.user}')
+    def run(self):
+        super().run(self.token)
+
+
+
+    
