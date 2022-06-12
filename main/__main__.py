@@ -1,9 +1,9 @@
-import bot
 import json
 import os
+from main import bot
 
 ENV_JSON_NAME = "env.json"
-ENV_JSON_PATH = os.path.join(os.getcwd, "..", ENV_JSON_NAME)
+ENV_JSON_PATH = os.path.join(os.getcwd(), "", ENV_JSON_NAME)
 
 
 def main():
@@ -11,9 +11,10 @@ def main():
     json_str = env_json_file.read()
     json_obj = json.loads(json_str)
     token = json_obj["bot_token"]
+    env_json_file.close()
+
     rel_bot = bot.RelBot(token)
     rel_bot.run()
-    env_json_file.close()
 
 
 if __name__ == "__main__":
