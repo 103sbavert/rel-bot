@@ -11,7 +11,8 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
         
     class MySelect(Select):
         async def callback(self, interaction):
-            await interaction.edit_original_message(content="test")
+            await interaction.response.send_message(f"You chose: {self.values[0]}")
+            
     @app_commands.command(name="roles")
     async def roles(self, interaction: discord.Interaction):
         select = SlashCommandsCog.MySelect(
