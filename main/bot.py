@@ -22,5 +22,6 @@ class RelBot(commands.bot.Bot):
     async def setup_hook(self) -> None:
         for extension in self.extension_list:
             await self.load_extension(extension)
-        self.tree.copy_global_to(guild=self.guild)
+
+        # self.tree.copy_global_to(guild=self.guild)
         await self.tree.sync(guild=self.guild)
