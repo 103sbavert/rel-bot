@@ -12,9 +12,10 @@ def main():
     json_obj = json.loads(json_str)
     token = json_obj["bot_token"]
     rel_id = json_obj["rel-id"]
+    print(rel_id)
     env_json_file.close()
-
-    rel_bot = bot.RelBot(token, rel_id)
+    extension_list = ["main.cogs.slash_commands_cog"]
+    rel_bot = bot.RelBot(extension_list, token, rel_id)
     rel_bot.run()
 
 
