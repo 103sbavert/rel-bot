@@ -11,9 +11,10 @@ def main():
     json_str = env_json_file.read()
     json_obj = json.loads(json_str)
     token = json_obj["bot_token"]
+    rel_id = json_obj["rel-id"]
     env_json_file.close()
 
-    rel_bot = bot.RelBot(token)
+    rel_bot = bot.RelBot(token, rel_id)
     rel_bot.run()
 
 

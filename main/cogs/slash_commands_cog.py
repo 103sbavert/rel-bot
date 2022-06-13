@@ -11,3 +11,7 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
     @app_commands.command(name="roles")
     async def roles(self, interaction: discord.Interaction):
         await interaction.response.send_message("something", ephemeral=True)
+
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(SlashCommandsCog(bot))
