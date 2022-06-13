@@ -1,6 +1,6 @@
 import json
 import os
-from main import bot
+import bot
 
 ENV_JSON_NAME = "env.json"
 ENV_JSON_PATH = os.path.join(os.getcwd(), "", ENV_JSON_NAME)
@@ -14,7 +14,7 @@ def main():
     rel_id = json_obj["rel-id"]
     print(rel_id)
     env_json_file.close()
-    extension_list = ["main.cogs.slash_commands_cog"]
+    extension_list = ["cogs.slash_commands_cog"]
     rel_bot = bot.RelBot(extension_list, token, rel_id)
     rel_bot.run()
 
