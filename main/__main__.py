@@ -14,7 +14,7 @@ def main():
     rel_id = json_obj["rel-id"]
     print(rel_id)
     env_json_file.close()
-    extension_list = ["cogs.slash_commands_cog"]
+    extension_list = ["cogs.prefix_commands_cog","cogs.slash_commands_cog"]
     rel_bot = bot.RelBot(extension_list, token, rel_id)
     rel_bot.run()
 
