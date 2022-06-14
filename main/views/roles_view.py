@@ -12,7 +12,6 @@ class Dropdown(discord.ui.Select):
 
         options = [
             discord.SelectOption(label='Fluency Level'),
-            discord.SelectOption(label='Colors'),
             discord.SelectOption(label='Native Language'),
             discord.SelectOption(label='Other')
         ]
@@ -51,9 +50,6 @@ class RolesView(discord.ui.View):
             self.buttons.append(Button("Advanced", self.on_button_click))
             self.buttons.append(Button("Intermediate", self.on_button_click))
             self.buttons.append(Button("Beginner", self.on_button_click))
-        elif values[0] == 'Colors':
-            for color in main.constants.supported_colors:
-                self.buttons.append(Button(color.name, self.on_button_click, emoji=color.emoji))
         elif values[0] == 'Native Language':
             for each in main.constants.supported_languages:
                 self.buttons.append(Button(each, self.on_button_click))
