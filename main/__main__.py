@@ -1,5 +1,6 @@
 import json
 import os
+
 from main.bot import RelBot
 
 ENV_JSON_NAME = "env.json"
@@ -12,13 +13,13 @@ def main():
     json_obj = json.loads(json_str)
 
     token = json_obj["bot_token"]
-    rel_id = json_obj["rel-id"]
+    guild_ids = json_obj["guilds"]
 
     env_json_file.close()
 
     extension_list = ["main.cogs.slash_commands_cog"]
 
-    rel_bot = RelBot(extension_list, token, rel_id)
+    rel_bot = RelBot(extension_list, token, guild_ids)
 
     rel_bot.run()
 

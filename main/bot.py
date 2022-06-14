@@ -1,20 +1,18 @@
-from typing import Type, Any, List
+from typing import List
+
 import discord
-from discord import app_commands, Intents
-from discord.ext import commands
+from discord import Intents
+from discord.ext.commands import Bot
 
 
-class RelBot(commands.bot.Bot):
-    DESCRIPTION = ""
+class RelBot(Bot):
+    DESCRIPTION = """A simple bot made with discord.py V2 for the r/EnglishLearning Discord server"""
 
-    def __init__(self, extension_list: List[str], token: str, rel_id: str, *,
-                 tree_cls: Type[app_commands.CommandTree[Any]] = app_commands.CommandTree, **options: Any) -> None:
-        super().__init__("!", help_command=None, tree_cls=tree_cls,
-                         description=RelBot.DESCRIPTION, intents=Intents.all(), **options)
+    def __init__(self, extension_list: List[str], token: str, guild_ids: List[str]) -> None:
+        super().__init__(command_prefix="rel", description=RelBot.DESCRIPTION, intents=Intents.all())
         self.token = token
-        self.rel_id = rel_id
         self.extension_list = extension_list
-        self.guild = discord.Object(id=rel_id)
+        self.guild_ids = guild_ids
 
     def run(self):
         return super().run(self.token)
@@ -22,4 +20,6 @@ class RelBot(commands.bot.Bot):
     async def setup_hook(self) -> None:
         for extension in self.extension_list:
             await self.load_extension(extension)
-        await self.tree.sync(guild=self.guild)
+        for guild_id in self.guild_ids:
+            guild = discord.Object(guild_id)
+            await self.tree.sync(guild=guild)

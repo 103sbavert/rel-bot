@@ -1,7 +1,8 @@
 import discord
-from discord.ext import commands
 from discord import app_commands
-from discord.ui import Select, View
+from discord.ext import commands
+from discord.ui import Select
+
 from main.views.roles_view import RolesView
 
 
