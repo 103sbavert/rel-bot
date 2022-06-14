@@ -1,6 +1,7 @@
 import json
 import os
 import bot
+from main.constants import supported_languages
 
 ENV_JSON_NAME = "env.json"
 ENV_JSON_PATH = os.path.join(os.getcwd(), "", ENV_JSON_NAME)
@@ -15,6 +16,7 @@ def main():
     print(rel_id)
     env_json_file.close()
     extension_list = ["cogs.slash_commands_cog"]
+    print(len(supported_languages))
     rel_bot = bot.RelBot(extension_list, token, rel_id)
     rel_bot.run()
 
