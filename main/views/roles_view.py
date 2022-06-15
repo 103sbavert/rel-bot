@@ -71,6 +71,7 @@ class RolesView(discord.ui.View):
         user_has_requested_role = interaction_user.get_role(requested_role.id) is not None
         if user_has_requested_role:
             await interaction_user.remove_roles(requested_role)
+            await interaction.response.edit_message(content="Role removed! You can now dismiss this message.", view=self)
         else:
             await interaction_user.add_roles(requested_role)
 
@@ -92,6 +93,7 @@ class RolesView(discord.ui.View):
         await clear_roles()
         if user_has_requested_role:
             await interaction_user.remove_roles(requested_role)
+            await interaction.response.edit_message(content="Role removed! You can now dismiss this message.", view=self)
         else:
             await interaction_user.add_roles(requested_role)
 

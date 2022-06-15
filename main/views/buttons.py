@@ -1,7 +1,7 @@
 import enum
 from typing import Any
 
-from discord import Interaction
+from discord import ButtonStyle, Interaction
 from discord.ui import Button
 
 from main.constants import supported_languages
@@ -10,7 +10,7 @@ from main.constants import supported_languages
 class FluencyLevelButton(Button):
 
     def __init__(self, role, callback):
-        super().__init__(label=role.label)
+        super().__init__(label=role.label, style=ButtonStyle.primary)
         self.role_id = role.role_id
         self.passed_callback = callback
 
@@ -20,7 +20,7 @@ class FluencyLevelButton(Button):
 class MiscRoleButton(Button):
     
     def __init__(self, role, callback):
-        super().__init__(label=role.label)
+        super().__init__(label=role.label, style=ButtonStyle.primary)
         self.role_id = role.role_id
         self.passed_callback = callback
 
