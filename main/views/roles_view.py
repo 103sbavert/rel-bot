@@ -3,8 +3,8 @@ from typing import List
 import discord
 from discord import Interaction
 
-from main.constants import roles_categories, fluency_levels
-from main.views.buttons import FluencyLevelButton, PageChangeButton
+from main.constants import roles_categories, fluency_levels, misc_roles
+from main.views.buttons import FluencyLevelButton, MiscRoleButton, PageChangeButton
 from main.views.dropdowns import RolesCategoryDropdown, NativeLanguagesDropdown
 
 
@@ -21,6 +21,13 @@ class RolesView(discord.ui.View):
         buttons = []
         for fluency_level in fluency_levels:
             button = FluencyLevelButton(fluency_level, self.on_fluencylevel_button_click)
+            buttons.append(button)
+        return buttons
+    
+    def misc_role_buttons(self):
+        buttons = []
+        for misc_role in misc_roles:
+            button = MiscRoleButton(misc_role, self.on_miscrole_button_click)
             buttons.append(button)
         return buttons
 
@@ -45,11 +52,28 @@ class RolesView(discord.ui.View):
                 self.pagechange_buttons.append(button)
                 self.add_item(button)
             await interaction.response.edit_message(content="Select your native language...", view=self)
+        elif selection == roles_categories[2].code:
+            buttons = self.misc_role_buttons()
+            for button in buttons:
+                self.add_item(button)
+            await interaction.response.edit_message(content="Select other roles...", view=self)
 
     async def on_nativelanguages_dropdown_select(self, dropdown: NativeLanguagesDropdown, interaction: Interaction):
         self.clear_items()
         role = interaction.guild.get_role(int(dropdown.values[0]))
         await interaction.user.add_roles(role)
+        await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
+
+    async def on_miscrole_button_click(self, button: MiscRoleButton, interaction: Interaction):
+        self.clear_items()
+        interaction_user = interaction.user
+        requested_role = interaction.guild.get_role(button.role_id)
+        user_has_requested_role = interaction_user.get_role(requested_role.id) is not None
+        if user_has_requested_role:
+            await interaction_user.remove_roles(requested_role)
+        else:
+            await interaction_user.add_roles(requested_role)
+
         await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
     async def on_fluencylevel_button_click(self, button: FluencyLevelButton, interaction: Interaction):
