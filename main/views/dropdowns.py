@@ -27,7 +27,7 @@ class NativeLanguagesDropdown(Select):
         options = []
         for language in supported_languages[self.slice_start:self.slice_end]:
             options.append(SelectOption(label=language.label, value=language.role_id))
-        super().__init__(placeholder="Pick your native language...", min_values=1, max_values=1, options=options)
+        super().__init__(placeholder="Pick your native language...", min_values=1, max_values=3, options=options)
 
     async def callback(self, interaction: Interaction) -> Any:
         await self.passed_callback(self, interaction)

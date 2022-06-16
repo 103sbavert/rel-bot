@@ -60,8 +60,20 @@ class RolesView(discord.ui.View):
 
     async def on_nativelanguages_dropdown_select(self, dropdown: NativeLanguagesDropdown, interaction: Interaction):
         self.clear_items()
-        role = interaction.guild.get_role(int(dropdown.values[0]))
-        await interaction.user.add_roles(role)
+        if len(dropdown.values) == 1:
+            role1 = interaction.guild.get_role(int(dropdown.values[0]))
+            await interaction.user.add_roles(role1)
+        elif len(dropdown.values) == 2:
+            role1 = interaction.guild.get_role(int(dropdown.values[0]))
+            role2 = interaction.guild.get_role(int(dropdown.values[1]))
+            await interaction.user.add_roles(role1, role2)
+        elif len(dropdown.values) == 3:
+            role1 = interaction.guild.get_role(int(dropdown.values[0]))
+            role2 = interaction.guild.get_role(int(dropdown.values[1]))
+            role3 = interaction.guild.get_role(int(dropdown.values[2]))
+            await interaction.user.add_roles(role1, role2, role3)
+                        
+
         await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
     async def on_miscrole_button_click(self, button: MiscRoleButton, interaction: Interaction):
