@@ -23,7 +23,7 @@ class RolesView(discord.ui.View):
             button = FluencyLevelButton(fluency_level, self.on_fluencylevel_button_click)
             buttons.append(button)
         return buttons
-    
+
     def misc_role_buttons(self):
         buttons = []
         for misc_role in misc_roles:
@@ -60,19 +60,9 @@ class RolesView(discord.ui.View):
 
     async def on_nativelanguages_dropdown_select(self, dropdown: NativeLanguagesDropdown, interaction: Interaction):
         self.clear_items()
-        if len(dropdown.values) == 1:
-            role1 = interaction.guild.get_role(int(dropdown.values[0]))
-            await interaction.user.add_roles(role1)
-        elif len(dropdown.values) == 2:
-            role1 = interaction.guild.get_role(int(dropdown.values[0]))
-            role2 = interaction.guild.get_role(int(dropdown.values[1]))
-            await interaction.user.add_roles(role1, role2)
-        elif len(dropdown.values) == 3:
-            role1 = interaction.guild.get_role(int(dropdown.values[0]))
-            role2 = interaction.guild.get_role(int(dropdown.values[1]))
-            role3 = interaction.guild.get_role(int(dropdown.values[2]))
-            await interaction.user.add_roles(role1, role2, role3)
-                        
+        for value in dropdown.values:
+            role = interaction.guild.get_role(int(value))
+            await interaction.user.add_roles(role)
 
         await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
@@ -86,8 +76,7 @@ class RolesView(discord.ui.View):
             await interaction.response.edit_message(content="Role removed! You can now dismiss this message.", view=self)
         else:
             await interaction_user.add_roles(requested_role)
-
-        await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
+            await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
     async def on_fluencylevel_button_click(self, button: FluencyLevelButton, interaction: Interaction):
         self.clear_items()
@@ -104,21 +93,19 @@ class RolesView(discord.ui.View):
 
         await clear_roles()
         if user_has_requested_role:
-            await interaction_user.remove_roles(requested_role)
             await interaction.response.edit_message(content="Role removed! You can now dismiss this message.", view=self)
         else:
             await interaction_user.add_roles(requested_role)
-
-        await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
+            await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
     async def on_pagechange_button_click(self, button: PageChangeButton, interaction: Interaction):
         if button.label == "Next Page":
             self.nativelanguages_dropdown.next_page()
         elif button.label == "Prev Page":
             self.nativelanguages_dropdown.prev_page()
-        self.refresh_buttons(self.nativelanguages_dropdown.slice_start, self.nativelanguages_dropdown.slice_end)
+        self.refresh_page_change_buttons(self.nativelanguages_dropdown.slice_start, self.nativelanguages_dropdown.slice_end)
         await interaction.response.edit_message(content="Select your native language...", view=self)
 
-    def refresh_buttons(self, slice_start: int, slice_end: int):
+    def refresh_page_change_buttons(self, slice_start: int, slice_end: int):
         for button in self.pagechange_buttons:
             button.refresh(slice_start, slice_end)
