@@ -4,19 +4,28 @@ class RoleCategory:
         self.code = code
 
 
-roles_categories = [
-    RoleCategory("Fluency", "1"),
-    RoleCategory("Native Language", "2"),
-    RoleCategory("Misc", "3")
-]
-
-
 class Role:
 
     def __init__(self, role_id, label):
         self.role_id = role_id
         self.label = label
 
+
+BOT_TOKEN_ENV_KEY = "bot_token"
+
+extension_list = ["main.cogs.slash_commands_cog"]
+
+roles_categories = [
+    RoleCategory("Fluency", "1"),
+    RoleCategory("Native Language", "2"),
+    RoleCategory("Misc", "3")
+]
+
+rel_id = 580707576942034955
+
+role_channels = [
+    874727627989078016
+]
 
 fluency_levels = [
     Role(580751998752784385, "Native Speaker"),

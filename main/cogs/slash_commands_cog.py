@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from main.views.roles_view import RolesView
+from main.views.roles_view.roles_view import RolesView
 
 
 class SlashCommandsCog(commands.Cog, name="SlashCommands"):

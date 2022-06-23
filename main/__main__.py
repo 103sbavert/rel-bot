@@ -1,26 +1,17 @@
-import json
 import os
 
-from main.bot import RelBot
+from dotenv import load_dotenv
 
-ENV_JSON_NAME = "env.json"
-ENV_JSON_PATH = os.path.join(os.getcwd(), ENV_JSON_NAME)
+from main.bot import RelBot
+from main.constants import BOT_TOKEN_ENV_KEY, extension_list
 
 
 def main():
-    env_json_file = open(ENV_JSON_PATH, encoding="utf-8") if os.path.exists(ENV_JSON_PATH) else None
-    json_str = env_json_file.read()
-    json_obj = json.loads(json_str)
+    load_dotenv()
 
-    token = json_obj["bot_token"]
-    guild_ids = json_obj["guilds"]
-
-    env_json_file.close()
-
-    extension_list = ["main.cogs.slash_commands_cog"]
-
-    rel_bot = RelBot(extension_list, token, guild_ids)
-
+    token = os.getenv(BOT_TOKEN_ENV_KEY)
+    print(token)
+    rel_bot = RelBot(extension_list, str(token))
     rel_bot.run()
 
 

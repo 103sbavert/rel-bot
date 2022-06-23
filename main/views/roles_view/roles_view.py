@@ -4,8 +4,8 @@ import discord
 from discord import Interaction
 
 from main.constants import roles_categories, fluency_levels, misc_roles
-from main.views.buttons import FluencyLevelButton, MiscRoleButton, PageChangeButton
-from main.views.dropdowns import RolesCategoryDropdown, NativeLanguagesDropdown
+from main.views.view_components.buttons import FluencyLevelButton, MiscRoleButton, PageChangeButton
+from main.views.view_components.dropdowns import RolesCategoryDropdown, NativeLanguagesDropdown
 
 
 class RolesView(discord.ui.View):
