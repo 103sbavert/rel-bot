@@ -18,7 +18,8 @@ extension_list = ["main.cogs.slash_commands_cog"]
 roles_categories = [
     RoleCategory("Fluency", "1"),
     RoleCategory("Native Language", "2"),
-    RoleCategory("Misc", "3")
+    RoleCategory("Misc", "3"),
+    RoleCategory("Pronoun", "4")
 ]
 
 rel_id = 580707576942034955
@@ -118,4 +119,10 @@ misc_roles = [
     Role(742386672523542560, "Brain of the Week"),
     Role(692048978384257136, "Server Games"),
     Role(865633878970597377, "Psychology Event"),
+]
+
+pronoun_roles = [
+    Role(753484926682267688, "He/Him"),
+    Role(753485324013011016, "She/Her"),
+    Role(753505984835616848, "They/Them")
 ]

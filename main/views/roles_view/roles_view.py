@@ -3,8 +3,8 @@ from typing import List
 import discord
 from discord import Interaction
 
-from main.constants import roles_categories, fluency_levels, misc_roles
-from main.views.view_components.buttons import FluencyLevelButton, MiscRoleButton, PageChangeButton
+from main.constants import roles_categories, fluency_levels, misc_roles, pronoun_roles
+from main.views.view_components.buttons import FluencyLevelButton, MiscRoleButton, PageChangeButton, PronounRoleButton
 from main.views.view_components.dropdowns import RolesCategoryDropdown, NativeLanguagesDropdown
 
 
@@ -28,6 +28,13 @@ class RolesView(discord.ui.View):
         buttons = []
         for misc_role in misc_roles:
             button = MiscRoleButton(misc_role, self.on_miscrole_button_click)
+            buttons.append(button)
+        return buttons
+    
+    def pronoun_role_buttons(self):
+        buttons = []
+        for pronoun_role in pronoun_roles:
+            button = PronounRoleButton(pronoun_role, self.on_pronoun_button_click)
             buttons.append(button)
         return buttons
 
@@ -57,6 +64,11 @@ class RolesView(discord.ui.View):
             for button in buttons:
                 self.add_item(button)
             await interaction.response.edit_message(content="Select other roles...", view=self)
+        elif selection == roles_categories[3].code:
+            buttons = self.pronoun_role_buttons()
+            for button in buttons:
+                self.add_item(button)
+            await interaction.response.edit_message(content="Select pronoun roles...", view=self)
 
     async def on_nativelanguages_dropdown_select(self, dropdown: NativeLanguagesDropdown, interaction: Interaction):
         self.clear_items()
@@ -67,6 +79,18 @@ class RolesView(discord.ui.View):
         await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
     async def on_miscrole_button_click(self, button: MiscRoleButton, interaction: Interaction):
+        self.clear_items()
+        interaction_user = interaction.user
+        requested_role = interaction.guild.get_role(button.role_id)
+        user_has_requested_role = interaction_user.get_role(requested_role.id) is not None
+        if user_has_requested_role:
+            await interaction_user.remove_roles(requested_role)
+            await interaction.response.edit_message(content="Role removed! You can now dismiss this message.", view=self)
+        else:
+            await interaction_user.add_roles(requested_role)
+            await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
+            
+    async def on_pronoun_button_click(self, button: MiscRoleButton, interaction: Interaction):
         self.clear_items()
         interaction_user = interaction.user
         requested_role = interaction.guild.get_role(button.role_id)

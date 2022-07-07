@@ -28,7 +28,15 @@ class MiscRoleButton(Button):
     async def callback(self, interaction: Interaction) -> Any:
         await self.passed_callback(self, interaction)
 
+class PronounRoleButton(Button):
+    def __init__(self, role, callback):
+        super().__init__(label=role.label, style=ButtonStyle.primary)
+        self.role_id = role.role_id
+        self.passed_callback = callback
 
+    async def callback(self, interaction: Interaction) -> Any:
+        await self.passed_callback(self, interaction)
+    
 class PageChangeButton(Button):
     class PageChangeButtonType(enum.IntEnum):
         prev_page = 0
