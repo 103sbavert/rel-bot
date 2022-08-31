@@ -30,7 +30,7 @@ class RelBot(Bot):
             message = levels_channel.get_partial_message(int(fluency_message_id))
             await message.edit(view=LevelsView())
         else:
-            fluency_message = await levels_channel.send(content="Choose a fluency level...", view=LevelsView())
+            fluency_message = await levels_channel.send(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=LevelsView())
             os.putenv(FLUENCY_MESSAGE_ID_KEY, str(fluency_message.id))
 
     def run(self):
@@ -40,3 +40,4 @@ class RelBot(Bot):
         for extension in self.extension_list:
             await self.load_extension(extension)
         await self.tree.sync(guild=discord.Object(rel_id))
+

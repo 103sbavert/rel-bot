@@ -51,7 +51,7 @@ class RolesView(discord.ui.View):
             buttons = self.fluency_level_buttons()
             for button in buttons:
                 self.add_item(button)
-            await interaction.response.edit_message(content="Select your English fluency level...", view=self)
+            await interaction.response.edit_message(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=self)
         elif selection == roles_categories[1].code:
             self.nativelanguages_dropdown = NativeLanguagesDropdown(self.on_nativelanguages_dropdown_select)
             self.add_item(self.nativelanguages_dropdown)
