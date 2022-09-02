@@ -22,7 +22,8 @@ class LevelsView(View):
             await interaction_user.remove_roles(
                 Object(fluency_levels[0].role_id),
                 Object(fluency_levels[1].role_id),
-                Object(fluency_levels[2].role_id)
+                Object(fluency_levels[2].role_id),
+                Object(fluency_levels[3].role_id)
             )
 
         await clear_roles()

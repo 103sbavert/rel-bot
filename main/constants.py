@@ -29,10 +29,10 @@ role_channels = [
 ]
 
 fluency_levels = [
-    Role(580751998752784385, "Native Speaker"),
-    Role(580751767541907496, "Advanced"),
+    Role(580751306495623168, "Beginner"),
     Role(580751510246260757, "Intermediate"),
-    Role(580751306495623168, "Beginner")
+    Role(580751767541907496, "Advanced"),
+    Role(580751998752784385, "Native Speaker")
 ]
 
 supported_languages = [

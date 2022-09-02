@@ -112,7 +112,8 @@ class RolesView(discord.ui.View):
             await interaction_user.remove_roles(
                 discord.Object(fluency_levels[0].role_id),
                 discord.Object(fluency_levels[1].role_id),
-                discord.Object(fluency_levels[2].role_id)
+                discord.Object(fluency_levels[2].role_id),
+                discord.Object(fluency_levels[3].role_id)
             )
 
         await clear_roles()
