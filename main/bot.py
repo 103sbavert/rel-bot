@@ -11,7 +11,7 @@ from main.views.levels_view.levels_view import LevelsView
 FLUENCY_MESSAGE_ID_KEY = "fluency_message_id"
 LANGUAGES_MESSAGE_ID_KEY = "languages_message_id"
 MISC_MESSAGE_ID_KEY = "misc_message_id"
-
+helped_users = []
 
 class RelBot(Bot):
     DESCRIPTION = """A simple bot made with discord.py V2 for the r/EnglishLearning Discord server"""
@@ -37,8 +37,13 @@ class RelBot(Bot):
     def run(self):
         return super().run(self.token)
 
-
-    
+    async def on_message(self, message):
+        if message.channel.id == 874753509118066729 and message.author != self.user and message.author not in helped_users:
+            roles = message.author.roles
+            if len(roles) == 1:
+                helped_users.append(message.author)
+                await message.channel.send("Hi! To finish joining the server, you should go to the channel called <#874727627989078016> and follow the instructions there!", reference=message)
+        
     async def setup_hook(self) -> None:
         for extension in self.extension_list:
             await self.load_extension(extension)
