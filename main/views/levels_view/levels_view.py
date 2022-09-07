@@ -16,7 +16,7 @@ class LevelsView(View):
         self.clear_items()
         interaction_user = interaction.user
         requested_role = interaction.guild.get_role(button.role_id)
-        user_has_requested_role = interaction_user.get_role(requested_role.id) is not None
+        user_has_requested_role = interaction_user.get_role(requested_role.id)
 
         async def clear_roles():
             await interaction_user.remove_roles(
