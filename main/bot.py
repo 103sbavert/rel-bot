@@ -31,8 +31,9 @@ class RelBot(Bot):
             await message.edit(view=LevelsView())
         else:
             fluency_message = await levels_channel.send(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=LevelsView())
-            errorWarning=discord.Embed(title="Attention", description="If this doesn't work, use the other method higher up in the channel", color=0xe74c3c)
+            errorWarning=discord.Embed(title="If this doesn't work, use the other method (click here)", url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", color=0xe74c3c)
             await levels_channel.send(embed=errorWarning)
+            message_id = fluency_message.id
             os.putenv(FLUENCY_MESSAGE_ID_KEY, str(fluency_message.id))
 
     def run(self):
