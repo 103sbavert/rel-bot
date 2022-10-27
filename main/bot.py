@@ -45,7 +45,11 @@ class RelBot(Bot):
             if len(roles) == 1:
                 helped_users.append(message.author)
                 await message.channel.send("Hi! To finish joining the server, you should go to the channel called <#874727627989078016> and follow the instructions there!", reference=message)
-        
+        mentions = message.raw_role_mentions 
+        for mention in mentions:
+            if mention == 654600359767048212:
+                await message.channel.send("Great, now join a voice channel and wait!", reference=message)
+            
     async def setup_hook(self) -> None:
         for extension in self.extension_list:
             await self.load_extension(extension)
