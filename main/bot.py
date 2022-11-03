@@ -25,17 +25,22 @@ class RelBot(Bot):
     async def on_ready(self):
         self.rel = discord.utils.get(self.guilds, id=rel_id)
         levels_channel = discord.utils.get(self.rel.channels, id=role_channels[0])
-        fluency_message_id = os.getenv(FLUENCY_MESSAGE_ID_KEY)
-        if fluency_message_id is not None:
-            message = levels_channel.get_partial_message(int(fluency_message_id))
-            await message.edit(view=LevelsView())
-        else:
-            fluency_message = await levels_channel.send(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=LevelsView())
-            errorWarning=discord.Embed(title="If this doesn't work, use the other method (click here)", url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", color=0xe74c3c)
-            await levels_channel.send(embed=errorWarning)
-            message_id = fluency_message.id
-            os.putenv(FLUENCY_MESSAGE_ID_KEY, str(fluency_message.id))
-
+        await levels_channel.send(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=LevelsView())
+        errorWarning=discord.Embed(title="If this doesn't work, use the other method (click here)", url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", color=0xe74c3c)
+        await levels_channel.send(embed=errorWarning)
+        
+        #BROKEN CODE:
+         #fluency_message_id = os.getenv(FLUENCY_MESSAGE_ID_KEY)
+        #if fluency_message_id is not None:
+            #message = levels_channel.get_partial_message(int(fluency_message_id))
+            #await message.edit(view=LevelsView())
+        #else:
+            #fluency_message = await levels_channel.send(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=LevelsView())
+            #errorWarning=discord.Embed(title="If this doesn't work, use the other method (click here)", url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", color=0xe74c3c)
+            #await levels_channel.send(embed=errorWarning)
+            #message_id = fluency_message.id
+            #os.putenv(FLUENCY_MESSAGE_ID_KEY, str(fluency_message.id))
+ 
     def run(self):
         return super().run(self.token)
 

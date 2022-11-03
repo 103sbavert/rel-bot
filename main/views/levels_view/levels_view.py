@@ -6,9 +6,8 @@ from main.views.view_components.buttons import FluencyLevelButton
 
 
 class LevelsView(View):
-
     def __init__(self):
-        super().__init__()
+        super().__init__(timeout=None)
         for each in fluency_levels:
             self.add_item(FluencyLevelButton(each, self.on_fluencylevel_button_click))
 
