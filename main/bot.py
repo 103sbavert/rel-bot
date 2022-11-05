@@ -5,7 +5,7 @@ import discord
 from discord import Intents
 from discord.ext.commands import Bot
 
-from main.constants import rel_id, role_channels
+from main.constants import rel_id, role_channels, help_channel, talker_role
 from main.views.levels_view.levels_view import LevelsView
 
 FLUENCY_MESSAGE_ID_KEY = "fluency_message_id"
@@ -45,14 +45,14 @@ class RelBot(Bot):
         return super().run(self.token)
 
     async def on_message(self, message):
-        if message.channel.id == 874753509118066729 and message.author != self.user and message.author not in helped_users:
+        if message.channel.id == help_channel and message.author != self.user and message.author not in helped_users:
             roles = message.author.roles
             if len(roles) == 1:
                 helped_users.append(message.author)
                 await message.channel.send("Hi! To finish joining the server, you should go to the channel called <#874727627989078016> and follow the instructions there!", reference=message)
         mentions = message.raw_role_mentions 
         for mention in mentions:
-            if mention == 654600359767048212:
+            if mention == talker_role:
                 await message.channel.send("Great, now join a voice channel and wait!", reference=message)
             
     async def setup_hook(self) -> None:

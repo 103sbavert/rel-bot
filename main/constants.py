@@ -22,6 +22,8 @@ roles_categories = [
     RoleCategory("Pronoun", "4")
 ]
 
+help_channel = 874753509118066729
+talker_role = 654600359767048212 
 rel_id = 580707576942034955
 
 role_channels = [
