@@ -1,5 +1,4 @@
 .env
-env.json
-env
 __pycache__
 .venv/
+**/*Zone.Identifier
