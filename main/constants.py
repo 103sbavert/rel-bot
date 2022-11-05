@@ -25,7 +25,7 @@ roles_categories = [
 help_channel = 874753509118066729
 talker_role = 654600359767048212 
 rel_id = 580707576942034955
-
+bot_role = 580829130581475339
 role_channels = [
     874727627989078016
 ]

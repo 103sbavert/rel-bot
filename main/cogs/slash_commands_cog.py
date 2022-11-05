@@ -1,7 +1,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-
+from main.constants import fluency_levels, bot_role
 from main.views.roles_view.roles_view import RolesView
 
 class SlashCommandsCog(commands.Cog, name="SlashCommands"):
@@ -19,9 +19,9 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
     async def prune(self, interaction: discord.Interaction):
         await interaction.response.defer(ephemeral=True)
         members = interaction.guild.members
-        roles = [interaction.guild.get_role(580751998752784385), interaction.guild.get_role(580751767541907496), 
-                 interaction.guild.get_role(580751510246260757), interaction.guild.get_role(580751306495623168),
-                 interaction.guild.get_role(580829130581475339)]
+        roles = [interaction.guild.get_role(fluency_levels[0].role_id), interaction.guild.get_role(fluency_levels[1].role_id), 
+                 interaction.guild.get_role(fluency_levels[2].role_id), interaction.guild.get_role(fluency_levels[3].role_id),
+                 interaction.guild.get_role(bot_role)]
         count = 0 
         for member in members:
             check = any(item in roles for item in member.roles)
