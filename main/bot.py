@@ -25,9 +25,15 @@ class RelBot(Bot):
     async def on_ready(self):
         self.rel = discord.utils.get(self.guilds, id=rel_id)
         levels_channel = discord.utils.get(self.rel.channels, id=role_channels[0])
-        await levels_channel.send(content="What is your fluency level in English? If you aren't sure, choose Intermediate.", view=LevelsView())
-        errorWarning=discord.Embed(title="If this doesn't work, use the other method (click here)", url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", color=0xe74c3c)
-        await levels_channel.send(embed=errorWarning)
+        fluencyChooser=discord.Embed(title="What is your fluency level in English?", 
+                                   url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", 
+                                   color=0x00FFFF)
+        fluencyChooser.add_field(name="Beginner", value="You only speak a little English\n(CEFR A1/A2)", inline=False)
+        fluencyChooser.add_field(name="Intermediate (Select this if you are unsure)", value="You can usually express yourself\n(CEFR B1/B2)", inline=False)
+        fluencyChooser.add_field(name="Advanced", value="Most English situations don't pose a significant challenge to you\n(CEFR C1/C2)", inline=False)
+        fluencyChooser.add_field(name="Native Speaker", value="English was your primary language when growing up at home or at school", inline=False)
+        await levels_channel.send(embed=fluencyChooser, view=LevelsView())
+        
         
         #BROKEN CODE:
          #fluency_message_id = os.getenv(FLUENCY_MESSAGE_ID_KEY)
@@ -54,6 +60,8 @@ class RelBot(Bot):
         for mention in mentions:
             if mention == talker_role:
                 await message.channel.send("Great, now join a voice channel and wait!", reference=message)
+        if (message.author.id == 469508668044345344 or message.author.id == 650050627766059024) and "slay" in message.content:
+            await message.channel.send("Slay", reference=message)
             
     async def setup_hook(self) -> None:
         for extension in self.extension_list:
