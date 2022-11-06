@@ -5,7 +5,7 @@ from discord.ui import Select
 
 from main.constants import roles_categories, supported_languages
 
-
+# Defines all the dropdown menus used by the bot 
 class RolesCategoryDropdown(Select):
     def __init__(self, callback):
         self.passed_callback = callback

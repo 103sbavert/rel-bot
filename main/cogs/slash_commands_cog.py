@@ -8,12 +8,14 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
+        
+    # Roles command that brings up the menu for choosing a role
     @app_commands.command(name="roles", description="Select a role from the categories available!")
     async def roles(self, interaction: discord.Interaction):
         view = RolesView()
         await interaction.response.send_message("Choose a catergory to select a role from", view=view, ephemeral=True)
         
+    # Prune command that kicks members with no fluency role or bot role   
     @app_commands.command(name="prune", description="Prune users who do not have a role")
     @commands.has_role("Server Bot Team")
     async def prune(self, interaction: discord.Interaction):
@@ -23,11 +25,13 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
                  interaction.guild.get_role(fluency_levels[2].role_id), interaction.guild.get_role(fluency_levels[3].role_id),
                  interaction.guild.get_role(bot_role)]
         count = 0 
+        # If member doesn't have a role in the list roles then they will be kicked
         for member in members:
             check = any(item in roles for item in member.roles)
             if not check:
                 await interaction.guild.kick(member)    
                 count = count + 1   
+                # Max 50 members to be kicked at once to avoid being timed out by Discord for sending too many requests
                 if count >= 50:
                     break    
         await interaction.followup.send('Kicked ' + str(count) + ' member(s)')

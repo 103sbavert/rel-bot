@@ -22,9 +22,12 @@ class RelBot(Bot):
         self.extension_list = extension_list
         self.rel = None
 
+    # Code to be executed when the bot is online
     async def on_ready(self):
         self.rel = discord.utils.get(self.guilds, id=rel_id)
+        # Gets the level channel ID from the constants file
         levels_channel = discord.utils.get(self.rel.channels, id=role_channels[0])
+        # Sends embed to the level channel
         fluencyChooser=discord.Embed(title="What is your fluency level in English?", 
                                    url="https://discord.com/channels/580707576942034955/874727627989078016/875772511659372574", 
                                    color=0x00FFFF)
@@ -50,17 +53,23 @@ class RelBot(Bot):
     def run(self):
         return super().run(self.token)
 
+    # Code to be executed when a message is sent in the server
     async def on_message(self, message):
+        # Checks for roleless people sending a message in the help channel who previously haven't been responded to
+        # Automatically responds to them if so
         if message.channel.id == help_channel and message.author != self.user and message.author not in helped_users:
             roles = message.author.roles
             if len(roles) == 1:
                 helped_users.append(message.author)
                 await message.channel.send("Hi! To finish joining the server, you should go to the channel called <#874727627989078016> and follow the instructions there!", reference=message)
+        # Checks to see if the Talker role has been mentioned
+        # Automatically responds to them if so
         mentions = message.raw_role_mentions 
         for mention in mentions:
             if mention == talker_role:
                 await message.channel.send("Great, now join a voice channel and wait!", reference=message)
-        if (message.author.id == 469508668044345344 or message.author.id == 650050627766059024) and "slay" in message.content:
+        # Responds with "slay" if the conditions below are met
+        if (message.author.id == 469508668044345344 or message.author.id == 650050627766059024) and "slay" in message.content.lower():
             await message.channel.send("Slay", reference=message)
             
     async def setup_hook(self) -> None:

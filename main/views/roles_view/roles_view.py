@@ -7,9 +7,10 @@ from main.constants import roles_categories, fluency_levels, misc_roles, pronoun
 from main.views.view_components.buttons import FluencyLevelButton, MiscRoleButton, PageChangeButton, PronounRoleButton
 from main.views.view_components.dropdowns import RolesCategoryDropdown, NativeLanguagesDropdown
 
-
+# Creates subclass for viewing the role buttons
 class RolesView(discord.ui.View):
 
+    # Creates buttons and dropdown menus for the /roles command
     def __init__(self):
         super().__init__()
         self.nativelanguages_dropdown = None
@@ -44,9 +45,11 @@ class RolesView(discord.ui.View):
             PageChangeButton(PageChangeButton.PageChangeButtonType.next_page, self.on_pagechange_button_click)
         ]
 
+    # Code to be executed when choosing a category on the role category dropdown menu
     async def on_rolescategory_dropdown_select(self, dropdown: RolesCategoryDropdown, interaction: Interaction):
         self.clear_items()
         selection = dropdown.values[0]
+        # Displays respective menu depending on the role category chosen
         if selection == roles_categories[0].code:
             buttons = self.fluency_level_buttons()
             for button in buttons:
@@ -69,7 +72,8 @@ class RolesView(discord.ui.View):
             for button in buttons:
                 self.add_item(button)
             await interaction.response.edit_message(content="Select pronoun roles...", view=self)
-
+            
+    # Code to be executed when choosing a native language on the native language dropdown menu
     async def on_nativelanguages_dropdown_select(self, dropdown: NativeLanguagesDropdown, interaction: Interaction):
         self.clear_items()
         for value in dropdown.values:
@@ -77,7 +81,8 @@ class RolesView(discord.ui.View):
             await interaction.user.add_roles(role)
 
         await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
-
+        
+    # Code to be executed when choosing a role on the misc role menu
     async def on_miscrole_button_click(self, button: MiscRoleButton, interaction: Interaction):
         self.clear_items()
         interaction_user = interaction.user
@@ -90,6 +95,7 @@ class RolesView(discord.ui.View):
             await interaction_user.add_roles(requested_role)
             await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
             
+    # Code to be executed when choosing a role on the pronoun role menu     
     async def on_pronoun_button_click(self, button: MiscRoleButton, interaction: Interaction):
         self.clear_items()
         interaction_user = interaction.user
@@ -101,13 +107,16 @@ class RolesView(discord.ui.View):
         else:
             await interaction_user.add_roles(requested_role)
             await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
-
+    
+    # Code to be executed when choosing a role on the fluency level menu   
     async def on_fluencylevel_button_click(self, button: FluencyLevelButton, interaction: Interaction):
         self.clear_items()
         interaction_user = interaction.user
         requested_role = interaction.guild.get_role(button.role_id)
         user_has_requested_role = interaction_user.get_role(requested_role.id) is not None
 
+        # Clears any previously assigned fluency level roles from the user 
+        # This prevents them having two fluency level roles
         async def clear_roles():
             await interaction_user.remove_roles(
                 discord.Object(fluency_levels[0].role_id),
@@ -117,20 +126,25 @@ class RolesView(discord.ui.View):
             )
 
         await clear_roles()
+        # Assigns requested role to the user and sends a confirmation message
         if user_has_requested_role:
             await interaction.response.edit_message(content="Role removed! You can now dismiss this message.", view=self)
         else:
             await interaction_user.add_roles(requested_role)
             await interaction.response.edit_message(content="Role added! You can now dismiss this message.", view=self)
 
+    # Code to be executed when a page change button is clicked
+    # Goes to the next or previous page
     async def on_pagechange_button_click(self, button: PageChangeButton, interaction: Interaction):
         if button.label == "Next Page":
             self.nativelanguages_dropdown.next_page()
         elif button.label == "Prev Page":
             self.nativelanguages_dropdown.prev_page()
+        # Displays the next or previous page
         self.refresh_page_change_buttons(self.nativelanguages_dropdown.slice_start, self.nativelanguages_dropdown.slice_end)
         await interaction.response.edit_message(content="Select your native language...", view=self)
-
+        
+    # Refreshes the menu depending on the page selected
     def refresh_page_change_buttons(self, slice_start: int, slice_end: int):
         for button in self.pagechange_buttons:
             button.refresh(slice_start, slice_end)

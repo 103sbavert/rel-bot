@@ -3,7 +3,7 @@ class RoleCategory:
         self.label = label
         self.code = code
 
-
+# Defines role class for storing role IDs
 class Role:
 
     def __init__(self, role_id, label):
@@ -15,6 +15,7 @@ BOT_TOKEN_ENV_KEY = "bot_token"
 
 extension_list = ["main.cogs.slash_commands_cog"]
 
+# Defines role catergories
 roles_categories = [
     RoleCategory("Fluency", "1"),
     RoleCategory("Native Language", "2"),
@@ -22,6 +23,7 @@ roles_categories = [
     RoleCategory("Pronoun", "4")
 ]
 
+# Defines variables for IDs that are used by the program
 help_channel = 874753509118066729
 talker_role = 654600359767048212 
 rel_id = 580707576942034955
