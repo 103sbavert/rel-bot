@@ -33,7 +33,7 @@ class RelBot(Bot):
                                    color=0x00FFFF)
         fluencyChooser.add_field(name="Beginner", value="You only speak a little English\n(CEFR A1/A2)", inline=False)
         fluencyChooser.add_field(name="Intermediate (Select this if you are unsure)", value="You can usually express yourself\n(CEFR B1/B2)", inline=False)
-        fluencyChooser.add_field(name="Advanced", value="Most English situations don't pose a significant challenge to you\n(CEFR C1/C2)", inline=False)
+        fluencyChooser.add_field(name="Advanced", value="Fluent or nearly fluent, but not native\n(CEFR C1/C2)", inline=False)
         fluencyChooser.add_field(name="Native Speaker", value="English was your primary language when growing up at home or at school", inline=False)
         await levels_channel.send(embed=fluencyChooser, view=LevelsView())
         
