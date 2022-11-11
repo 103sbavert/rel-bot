@@ -25,4 +25,5 @@ class RelBot(Bot):
     async def setup_hook(self) -> None:
         for extension in self.extension_list:
             await self.load_extension(extension)
+        self.tree.copy_global_to(guild=discord.Object(rel_id))
         await self.tree.sync(guild=discord.Object(rel_id))

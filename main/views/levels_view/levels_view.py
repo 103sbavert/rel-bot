@@ -8,7 +8,7 @@ from main.views.view_components.buttons import FluencyLevelButton
 class LevelsView(View):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(timeout=None)
         for each in fluency_levels:
             self.add_item(FluencyLevelButton(each, self.on_fluencylevel_button_click))
 
@@ -22,7 +22,8 @@ class LevelsView(View):
             await interaction_user.remove_roles(
                 Object(fluency_levels[0].role_id),
                 Object(fluency_levels[1].role_id),
-                Object(fluency_levels[2].role_id)
+                Object(fluency_levels[2].role_id),
+                Object(fluency_levels[3].role_id)
             )
 
         await clear_roles()

@@ -15,7 +15,7 @@ BOT_TOKEN_ENV_KEY = "bot_token"
 
 extension_list = [
     "main.cogs.slash_commands_cog",
-    "main.cogs.helper_message_cog",
+    "main.cogs.helper_messages_cog",
     "main.cogs.fluency_roles_cog"
 ]
 
@@ -25,7 +25,9 @@ roles_categories = [
     RoleCategory("Misc", "3")
 ]
 
+bot_role = 580829130581475339
 rel_id = 580707576942034955
+talker_role = 654600359767048212 
 
 channels = {
     "roles": 874727627989078016,
@@ -34,10 +36,11 @@ channels = {
 }
 
 fluency_levels = [
-    Role(580751998752784385, "Native Speaker"),
-    Role(580751767541907496, "Advanced"),
+    Role(580751306495623168, "Beginner"),
     Role(580751510246260757, "Intermediate"),
-    Role(580751306495623168, "Beginner")
+    Role(580751767541907496, "Advanced"),
+    Role(580751998752784385, "Native Speaker")
+
 ]
 
 supported_languages = [
