@@ -10,7 +10,6 @@ def main():
     load_dotenv()
 
     token = os.getenv(BOT_TOKEN_ENV_KEY)
-    print(token)
     rel_bot = RelBot(extension_list, str(token))
     rel_bot.run()
 

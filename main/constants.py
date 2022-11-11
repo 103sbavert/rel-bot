@@ -13,7 +13,11 @@ class Role:
 
 BOT_TOKEN_ENV_KEY = "bot_token"
 
-extension_list = ["main.cogs.slash_commands_cog"]
+extension_list = [
+    "main.cogs.slash_commands_cog",
+    "main.cogs.helper_message_cog",
+    "main.cogs.fluency_roles_cog"
+]
 
 roles_categories = [
     RoleCategory("Fluency", "1"),
@@ -23,9 +27,11 @@ roles_categories = [
 
 rel_id = 580707576942034955
 
-role_channels = [
-    874727627989078016
-]
+channels = {
+    "roles": 874727627989078016,
+    "help": 874753509118066729,
+    "english_level": 874727627989078016
+}
 
 fluency_levels = [
     Role(580751998752784385, "Native Speaker"),
