@@ -13,7 +13,11 @@ class Role:
 
 BOT_TOKEN_ENV_KEY = "bot_token"
 
-extension_list = ["main.cogs.slash_commands_cog"]
+extension_list = [
+    "main.cogs.slash_commands_cog",
+    "main.cogs.helper_messages_cog",
+    "main.cogs.fluency_roles_cog"
+]
 
 # Defines role catergories
 roles_categories = [
@@ -23,14 +27,17 @@ roles_categories = [
     RoleCategory("Pronoun", "4")
 ]
 
-# Defines variables for IDs that are used by the program
-help_channel = 874753509118066729
-talker_role = 654600359767048212 
-rel_id = 580707576942034955
+
 bot_role = 580829130581475339
-role_channels = [
-    874727627989078016
-]
+rel_id = 580707576942034955
+talker_role = 654600359767048212 
+
+channels = {
+    "roles": 874727627989078016,
+    "help": 874753509118066729,
+    "english_level": 874727627989078016
+}
+
 
 fluency_levels = [
     Role(580751306495623168, "Beginner"),
