@@ -3,7 +3,7 @@ class RoleCategory:
         self.label = label
         self.code = code
 
-
+# Defines role class for storing role IDs
 class Role:
 
     def __init__(self, role_id, label):
@@ -19,11 +19,14 @@ extension_list = [
     "main.cogs.fluency_roles_cog"
 ]
 
+# Defines role catergories
 roles_categories = [
     RoleCategory("Fluency", "1"),
     RoleCategory("Native Language", "2"),
-    RoleCategory("Misc", "3")
+    RoleCategory("Misc", "3"),
+    RoleCategory("Pronoun", "4")
 ]
+
 
 bot_role = 580829130581475339
 rel_id = 580707576942034955
@@ -35,12 +38,12 @@ channels = {
     "english_level": 874727627989078016
 }
 
+
 fluency_levels = [
     Role(580751306495623168, "Beginner"),
     Role(580751510246260757, "Intermediate"),
     Role(580751767541907496, "Advanced"),
     Role(580751998752784385, "Native Speaker")
-
 ]
 
 supported_languages = [
@@ -127,4 +130,10 @@ misc_roles = [
     Role(742386672523542560, "Brain of the Week"),
     Role(692048978384257136, "Server Games"),
     Role(865633878970597377, "Psychology Event"),
+]
+
+pronoun_roles = [
+    Role(753484926682267688, "He/Him"),
+    Role(753485324013011016, "She/Her"),
+    Role(753505984835616848, "They/Them")
 ]
