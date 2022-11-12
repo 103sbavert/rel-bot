@@ -1,9 +1,13 @@
-from __future__  import annotations
-from main.string_resources import StringResources
-from main.constants import channels, talker_role
+from __future__ import annotations
+
 from os import getcwd
+
 import discord
 from discord.ext import commands
+
+from main.constants import channels, talker_role
+from main.string_resources import StringResources
+
 
 class HelperMessagesCog(commands.Cog, name="HelperMessages"):
     class IDAlreadyExistsError(Exception):
@@ -27,7 +31,7 @@ class HelperMessagesCog(commands.Cog, name="HelperMessages"):
 
     @staticmethod
     def user_exists(user_id: int) -> bool:
-        with open(f"{getcwd()}/../helped_users", encoding="utf-8", mode="a+") as file:
+        with open(f"{getcwd()}/../helped_users", encoding="utf-8", mode="r") as file:
             ids = file.readline()
             return True if ids.find(str(user_id)) != -1 else False
 
@@ -35,19 +39,16 @@ class HelperMessagesCog(commands.Cog, name="HelperMessages"):
     async def on_message(self, message: discord.Message):
         requires_help = message.channel.id == channels["help"] and \
                         not message.author.bot and \
-                        len(message.author.roles) == 1
-                        #broken
-                        #HelperMessagesCog.user_exists(message.author.id)
+                        len(message.author.roles) == 1 and \
+                        HelperMessagesCog.user_exists(message.author.id)
 
         if requires_help:
             await message.reply(StringResources.helpChannel_message)
             HelperMessagesCog.add_user(message.author.id)
-        # Checks to see if the Talker role has been mentioned
-        # Automatically responds to them if so
-        mentions = message.raw_role_mentions 
-        for mention in mentions:
-            if mention == talker_role:
-                await message.reply(StringResources.talkerPing_message)
+
+        mentioned_role_ids = message.raw_role_mentions
+        if talker_role in mentioned_role_ids:
+            await message.reply(StringResources.talkerPing_message)
 
 
 async def setup(bot: commands.Bot):

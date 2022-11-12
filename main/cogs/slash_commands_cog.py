@@ -1,15 +1,17 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-from main.constants import fluency_levels, bot_role
-from main.views.roles_view.roles_view import RolesView
+
+from main.constants import fluency_levels
 from main.string_resources import StringResources
+from main.views.roles_view.roles_view import RolesView
+
 
 class SlashCommandsCog(commands.Cog, name="SlashCommands"):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        
+
     # Roles command that brings up the menu for choosing a role
     @app_commands.command(name=StringResources.roles_command_name, description=StringResources.roles_command_description)
     async def roles(self, interaction: discord.Interaction):
@@ -22,19 +24,17 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
     async def prune(self, interaction: discord.Interaction):
         await interaction.response.defer(ephemeral=True)
         members = interaction.guild.members
-        roles = [interaction.guild.get_role(fluency_levels[0].role_id), interaction.guild.get_role(fluency_levels[1].role_id), 
-                 interaction.guild.get_role(fluency_levels[2].role_id), interaction.guild.get_role(fluency_levels[3].role_id),
-                 interaction.guild.get_role(bot_role)]
-        count = 0 
+        roles = map(lambda it: interaction.guild.get_role(it.role_id), fluency_levels)
+        count = 0
         # If member doesn't have a role in the list roles then they will be kicked
         for member in members:
             check = any(item in roles for item in member.roles)
             if not check:
-                await interaction.guild.kick(member)    
-                count = count + 1   
+                await interaction.guild.kick(member)
+                count = count + 1
                 # Max 50 members to be kicked at once to avoid being timed out by Discord for sending too many requests
                 if count >= 50:
-                    break    
+                    break
         await interaction.followup.send('Kicked ' + str(count) + ' member(s)')
 
 
