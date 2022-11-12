@@ -28,7 +28,7 @@ class FluencyRoles(commands.Cog, name="FluencyRoles"):
             fluencyChooser.add_field(name="Advanced", value="Fluent or nearly fluent, but not native\n(CEFR C1/C2)", inline=False)
             fluencyChooser.add_field(name="Native Speaker", value="English was your primary language when growing up at home or at school", inline=False)
             fluency_message = await levels_channel.send(embed=fluencyChooser, view=LevelsView())
-            dotenv_path = f"{getcwd()}/../.env"
+            dotenv_path = f"{getcwd()}/.env"
             with open(dotenv_path, mode="a+") as dotenv:
                 dotenv.write(f"{StringResources.FLUENCY_MESSAGE_ID_KEY}={str(fluency_message.id)}")
         else:

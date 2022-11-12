@@ -23,7 +23,7 @@ class HelperMessagesCog(commands.Cog, name="HelperMessages"):
 
     @staticmethod
     def add_user(user_id: int):
-        with open(f"{getcwd()}/../helped_users", encoding="utf-8", mode="a+") as file:
+        with open(f"{getcwd()}/helped_users", encoding="utf-8", mode="a+") as file:
             ids = file.readline()
             if ids.find(str(user_id)) != -1:
                 raise HelperMessagesCog.IDAlreadyExistsError(user_id)
@@ -31,7 +31,7 @@ class HelperMessagesCog(commands.Cog, name="HelperMessages"):
 
     @staticmethod
     def user_exists(user_id: int) -> bool:
-        with open(f"{getcwd()}/../helped_users", encoding="utf-8", mode="r") as file:
+        with open(f"{getcwd()}/helped_users", encoding="utf-8", mode="r") as file:
             ids = file.readline()
             return True if ids.find(str(user_id)) != -1 else False
 
