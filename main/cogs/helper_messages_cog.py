@@ -24,23 +24,28 @@ class HelperMessagesCog(commands.Cog, name="HelperMessages"):
     @staticmethod
     def add_user(user_id: int):
         with open(f"{getcwd()}/helped_users", encoding="utf-8", mode="a+") as file:
-            ids = file.readline()
-            if ids.find(str(user_id)) != -1:
+            if HelperMessagesCog.user_exists(user_id):
                 raise HelperMessagesCog.IDAlreadyExistsError(user_id)
             file.write(f"{user_id}\n")
 
     @staticmethod
     def user_exists(user_id: int) -> bool:
         with open(f"{getcwd()}/helped_users", encoding="utf-8", mode="r") as file:
-            ids = file.readline()
-            return True if ids.find(str(user_id)) != -1 else False
+            ids = file.readlines()
+            print(user_id)
+            for each in ids:
+                if each.strip() == str(user_id):
+                    print(True)
+                    return True
+            print(False)
+            return False
 
     @commands.Cog.listener("on_message")
     async def on_message(self, message: discord.Message):
         requires_help = message.channel.id == channels["help"] and \
                         not message.author.bot and \
                         len(message.author.roles) == 1 and \
-                        HelperMessagesCog.user_exists(message.author.id)
+                        not HelperMessagesCog.user_exists(message.author.id)
 
         if requires_help:
             await message.reply(StringResources.helpChannel_message)
