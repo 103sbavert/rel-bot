@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from main.constants import fluency_levels
+from main.constants import fluency_levels, bot_role
 from main.string_resources import StringResources
 from main.views.roles_view.roles_view import RolesView
 
@@ -24,7 +24,10 @@ class SlashCommandsCog(commands.Cog, name="SlashCommands"):
     async def prune(self, interaction: discord.Interaction):
         await interaction.response.defer(ephemeral=True)
         members = interaction.guild.members
-        roles = map(lambda it: interaction.guild.get_role(it.role_id), fluency_levels)
+        roles = []
+        for x in range(len(fluency_levels)):
+            roles.append(interaction.guild.get_role(fluency_levels[x].role_id))
+        roles.append(interaction.guild.get_role(bot_role))
         count = 0
         # If member doesn't have a role in the list roles then they will be kicked
         for member in members:
