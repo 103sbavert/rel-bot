@@ -124,12 +124,7 @@ misc_roles = [
     Role(581981082262700043, "Helper"),
     Role(776459201366589490, "Beginner Friendly"),
     Role(654600359767048212, "Talker"),
-    Role(753485493324480592, "Conversationalist"),
     Role(680828119157833841, "Correct Me"),
-    Role(755146054067945573, "Server Music"),
-    Role(742386672523542560, "Brain of the Week"),
-    Role(692048978384257136, "Server Games"),
-    Role(865633878970597377, "Psychology Event"),
 ]
 
 pronoun_roles = [
